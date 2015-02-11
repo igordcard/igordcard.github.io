@@ -1,0 +1,14 @@
+---
+layout: post
+title: A working bashrc function without parameter expansion (globbing)
+date: '2013-04-22T23:04:00.002+01:00'
+author: Igor Duarte Cardoso
+tags:
+- bash
+- Linux
+modified_time: '2013-04-22T23:15:03.607+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-3018505313409258809
+blogger_orig_url: http://igordcard.blogspot.com/2013/04/a-working-bashrc-function-without.html
+---
+
+I have noticed that the function I had under my <code>bashrc</code> script to simplify the syntax of the <code>find</code> command wasn't actually working for all cases. When I passed asterisks for the search criteria, I was left with weird findings resulting from parameter expansion (<a href="http://en.wikipedia.org/wiki/Glob_(programming)">globbing</a>). Here is the failing function (from my home <code>.bashrc</code>): <pre class="prettyprint"><br />function findf() {<br />   find $1 -name "$2" 2>/dev/null<br />}<br /></pre><a name='more'></a>Which doesn't work properly for the case mentioned above.<br /><br />After meddling a little bit with this I was able to have a working "<code>findf</code>" by using an alias just to deactivate globbing (<code>set -f</code>) before calling the function (which I have renamed to avoid conflicting with the alias): <pre class="prettyprint"><br />alias findf='set -f; findf_func'<br />function findf_func() {<br />   find $1 -name "$2" 2>/dev/null<br />   set +f<br />}<br /></pre> Deactivating globbing inside the function is not enough because the parameters will be expanded before the first line is executed. <br /><br />After the <code>find</code> command finishes, globbing can be activated again with <code>set +f</code>.

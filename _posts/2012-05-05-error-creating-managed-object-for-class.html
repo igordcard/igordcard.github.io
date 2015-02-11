@@ -1,0 +1,16 @@
+---
+layout: post
+title: Error creating managed object for class
+date: '2012-05-05T20:40:00.001+01:00'
+author: Igor Duarte Cardoso
+tags:
+- GlassFish
+- Jersey
+- NetBeans
+- Fixes
+modified_time: '2012-05-05T21:13:29.836+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-3114637570604301308
+blogger_orig_url: http://igordcard.blogspot.com/2012/05/error-creating-managed-object-for-class.html
+---
+
+Well, while developing my enterprise application in NetBeans 7.1.2 with GlassFish 3.1.2 as the application server, the following most notable error appeared and made the project unable to deploy:<br /><br /><pre style="border: 1px solid black;">Error creating managed object for class: class org.jboss.weld.servlet.WeldListener</pre><br />and a bunch of other errors and exceptions.<br /><a name='more'></a><br /><br />I tried to revert my changes since the last revision from the revision control and found myself in the same situation.<br /><br />Manual clean followed by build also did nothing.<br /><br /><b>Solution:</b><br /><b>My gut told me I just needed to clean the NetBeans trash and so I did:</b><br /><br /><ul><li>I deleted all of my project locally;</li><li>Restarted NetBeans;</li><li>Checked out my project from the revision control again;</li><li>Run it, and it worked!</li></ul><div>I don't know the cause of this, but if you can't find another way then just try to clean your NetBeans generated junk.</div><div><br /></div><div>I was having this in the context of a RESTful web service (Jersey) plus EJBs which was working properly. A little investigation told me that it might be a bug in Jersey, check the links below for more information.<br /><br />I also invite you to comment on a better solution for this and I'll update this post with it.<br /><br /><b>Update:</b>&nbsp;I can now reproduce this issue, if I set my RESTful web service to be session scoped (<code>@SessionScoped</code>) it breaks but sometimes I can make it work by changing to request scoped (<code>@RequestScoped</code>) again. My source code is simply the following:<br /><br /></div><div><pre class="prettyprint">@SessionScoped<br />@Path("/mypath")<br />public class MyREST {<br />    <br />    @EJB<br />    private MyFacadeLocal myFacade;<br />    <br />    public MyREST() {<br />    }<br /><br />    @GET<br />    @Produces("text/plain")<br />    public String respond() {        <br />        return "DONE";<br />    }<br />}<br /></pre><br /></div><div><b>Useful links:</b></div><div><a href="http://stackoverflow.com/questions/5997008/jax-rs-failed-to-inject-ejb-or-inject">JAX-RS failed to inject @EJB or @Inject</a></div>

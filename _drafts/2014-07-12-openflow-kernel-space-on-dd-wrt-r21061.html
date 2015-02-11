@@ -1,0 +1,12 @@
+---
+layout: post
+title: OpenFlow Kernel space on DD-WRT (r21061 @ WNDR3700v1)
+date: '2014-07-12T20:15:00.000+01:00'
+author: Igor Duarte Cardoso
+tags: 
+modified_time: '2014-07-12T20:15:10.107+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-8518685655646421045
+blogger_orig_url: http://igordcard.blogspot.com/2014/07/openflow-kernel-space-on-dd-wrt-r21061.html
+---
+
+Having this as a base:&nbsp;http://archive.openflow.org/wk/index.php/UoR_:_Openflow_Kernel_space_on_DD-WRT, I did the following:<br /><br />Got equivalent dependencies in Arch Linux (list some of the ones I had installed):<br /><br />./selective_svn $(SOURCE_DIR) 21061<br /><br />at universal/ :<br />svn up --set-depth infinity -r 21061<br /><br />Dafuq? The source code seems to be kinda limited to broadcom... (see /src/router).

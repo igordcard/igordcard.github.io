@@ -1,0 +1,15 @@
+---
+layout: post
+title: The vmware-usbarbitrator binary closes itself with "Pipe unexpectedly closed."
+date: '2013-03-13T13:23:00.001Z'
+author: Igor Duarte Cardoso
+tags:
+- VMware
+- Arch Linux
+- Fixes
+modified_time: '2013-04-17T00:23:41.751+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-2727981020355775466
+blogger_orig_url: http://igordcard.blogspot.com/2013/03/the-vmware-usbarbitrator-binary-closes.html
+---
+
+<br /><div style="background-color: white; font-family: sans-serif; font-size: 13px; line-height: 19.046875px; margin-bottom: 0.5em; margin-top: 0.4em;">The binary closes itself after around 5 seconds. If run directly from the terminal it shows the following:</div><pre style="background-color: #fdd7b8; border-color: #DDB798; border-style: solid solid solid; border-width: 1px; color: #222222; line-height: 1.1em; overflow: auto; padding: 1em 1em 0.8em;"># vmware-usbarbitrator<br />Pipe unexpectedly closed.</pre><div style="background-color: white; font-family: sans-serif; font-size: 13px; line-height: 19.046875px; margin-bottom: 0.5em; margin-top: 0.4em;"><br /><a name='more'></a>The following command only shows the following:</div><pre style="background-color: #fdd7b8; border-color: #DDB798; border-style: solid solid solid; border-width: 1px; color: #222222; line-height: 1.1em; overflow: auto; padding: 1em 1em 0.8em;"># vmware-usbarbitrator --info -f<br />VTHREAD initialize main thread 2 "usbArb" pid 7554<br /></pre><div style="background-color: white; font-family: sans-serif; font-size: 13px; line-height: 19.046875px; margin-bottom: 0.5em; margin-top: 0.4em;"><br />This is caused by an empty&nbsp;<code style="background-color: #fde3cf; color: #222222; display: inline-block;">/etc/arch-release</code>&nbsp;(owned by&nbsp;<span style="font-family: monospace;">filesystem</span>).</div><div style="background-color: white; font-family: sans-serif; font-size: 13px; line-height: 19.046875px; margin-bottom: 0.5em; margin-top: 0.4em;">To fix it, add a version string to <code style="background-color: #fde3cf; color: #222222;">/etc/arch-release</code> in the form of&nbsp;<code style="background-color: #fde3cf; color: #222222; display: inline-block;">&lt;year&gt;.&lt;month&gt;(.&lt;day&gt;)</code>&nbsp;(e.g.&nbsp;<code style="background-color: #fde3cf; color: #222222; display: inline-block;">2013.03.01</code>).<br /><br />I have added this fix to <a href="https://wiki.archlinux.org/index.php/VMware#3.29_The_vmware-usbarbitrator_binary_closes_itself_with_.22Pipe_unexpectedly_closed..22">ArchWiki</a>, the official Arch Linux Wiki where more troubleshooting information is available.<br /><br /><b>Update (2013/04/17):</b><br />I have also added the AUR package <code>vmware-usbarbitrator</code>, which provides a systemd service to automatically run <code>VMware-USBArbitrator</code> on computer startup. This systemd service has now been integrated into a single, feature-complete package: <code><a href="https://aur.archlinux.org/packages/vmware-patch/">vmware-patch</a></code>.</div>

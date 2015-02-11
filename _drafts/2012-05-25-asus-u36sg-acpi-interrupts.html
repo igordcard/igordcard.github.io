@@ -1,0 +1,11 @@
+---
+layout: post
+title: ASUS U36SG ACPI Interrupts
+date: '2012-05-25T22:54:00.001+01:00'
+author: Igor Duarte Cardoso
+tags: 
+modified_time: '2012-05-25T22:54:06.845+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-3682126967391304516
+---
+
+I finally found the cause for this: Fresco Logic USB 3.0 Controller.<div></div><div><br /></div><div><b><span style="color: red;">This is highly important</span></b>: <b>If you have this controller, I invite to read this post and test your computer.</b></div><div><br /></div><div>In Arch Linux, if you suspend your computer and have a USB3 device connected, you either get the interrupts or the bus just stops working forever &nbsp;(until you totally shut down the computer) without interrupts.</div><div><br /></div><div>To fix in Arch Linux, just&nbsp;don't let it suspend the computer without suspending the USB3-responsible module (xhci_hcd), in all other cases the module stays loaded:</div><div><br /></div><div><pre style="background-color: #ebf1f5; border: 1px solid rgb(187, 204, 221); color: #222222; line-height: 1.1em; overflow: auto; padding: 1em;">SUSPEND_MODULES="xhci_hcd ehci_hcd"</pre></div><div><br /></div><div>In Windows... well, if you are using a USB3 device and then you "safely remove" it, changes are you'll get the ACPI interrupts. If you don't get them, changes are you'll get when you suspend the computer, like in Linux.</div><div><br /></div><div>This is really bad. Thanks to this and to an ASUS bug in Easy Flash (I tried to update the BIOS version because it could solve the interrupts problem) with NTFS partitions as the ROM source, I bricked my computer and had it RMA-ed. Now it's back, it has the latest BIOS and problem persists. Hopefully my workaround will serve me enough.</div><div><br /></div><div>Do you also have this problem? In what machine? Your info is greatly appreciated and may contribute to fixing your problem and the problem of many, you can comment freely below.</div>
