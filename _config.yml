@@ -4,7 +4,7 @@ name: Igor Duarte Cardoso
 description: Sharing technology, tutorials, development, knowledge, hints, events, geek stuff...
 
 # url is currently only used only for the RSS feed in feed.xml
-url: http://igordcard.github.io
+url: http://blog.igordcard.com
 
 # baseurl will often be '', but for a project page on gh-pages, it needs to
 # be the project name.
@@ -16,12 +16,12 @@ baseurl: ''
 github: ''
 
 # Set this to your UA-# value, or '' to disable the block completely
-gaaccount: ''
+gaaccount: 'UA-12412635-4'
 
 # Set this to your disqus shortname to enable comments. Note that the 'comments'
 # setting below must also be true. Individual posts can override 'comments' to
 # disable on a post-by-post basis
-disqus: ''
+disqus: 'igordcard'
 comments: true
 
 permalink: /:year/:month/:title
