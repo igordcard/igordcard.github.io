@@ -1,0 +1,16 @@
+---
+layout: post
+title: JBoss ESB JMS client
+date: '2013-11-26T21:10:00.000Z'
+author: Igor Duarte Cardoso
+tags:
+- Java
+- Development
+- JBoss
+- ESB
+modified_time: '2013-11-27T01:19:32.466Z'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-8341526921393728847
+blogger_orig_url: http://igordcard.blogspot.com/2013/11/jboss-esb-jms-client.html
+---
+
+In case you have followed&nbsp;<a href="http://www.mastertheboss.com/jboss-soa/jboss-esb-tutorial">this guide</a>&nbsp;and are now wondering how to run the client, here'a a little tip to prevent you from wasting more time.<br /><a name='more'></a><br /><br />If you've created the <code>SendJMSMessage.java</code> inside the same project and ran it as a Java Application, then you probably got something that included this: <br /><br /><pre class="prettyprint">Caused by: java.lang.ClassNotFoundException: org.jboss.aop.metadata.ClassMetaDataLoader</pre>or this:<br /><pre class="prettyprint">Caused by: java.lang.ClassNotFoundException: org.jboss.aop.pointcut.PointcutStats</pre>or even this: <br /><pre class="prettyprint">Caused by: java.lang.ClassNotFoundException: org.jboss.aop.metadata.Pointcut</pre><br />You should create a new Java Project with the <code>SendJMSMessage.java</code>, then go to the project properties and, instead of including every jar in the Java Build Path (as explained <a href="http://eai-course.blogspot.pt/2012/11/the-helloworld-in-jboss-enterprise.html">here</a>), add two libraries: 1) JBoss ESB Libraries and 2) Server Runtime. The server runtime will be the previously created JBoss server runtime.  <br /><br />Then run this project as a Java Application and it should work.<br /><br />In case your wondering what software versions I've used and so on, here are they:<br /><br /><ul><li>Eclipse Helios (3.6.2);</li><li>JBoss Tools 3.2.x installed via Eclipse Marketplace;</li><li>JBoss ESB Server 4.10;</li><li>added JBoss Server Runtime as version 5.1;</li></ul><br /><h3>Links:</h3><a href="http://www.mastertheboss.com/jboss-soa/jboss-esb-tutorial">JBoss ESB tutorial</a><br /><a href="http://eai-course.blogspot.pt/2012/11/the-helloworld-in-jboss-enterprise.html">he HelloWorld in the JBoss Enterprise Service Bus</a>

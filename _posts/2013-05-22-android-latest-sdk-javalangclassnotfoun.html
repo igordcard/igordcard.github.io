@@ -1,0 +1,15 @@
+---
+layout: post
+title: 'Android latest SDK: java.lang.ClassNotFoundException'
+date: '2013-05-22T20:06:00.001+01:00'
+author: Igor Duarte Cardoso
+tags:
+- Eclipse
+- Android
+- Fixes
+modified_time: '2013-05-22T20:06:44.386+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-9154891167149971535
+blogger_orig_url: http://igordcard.blogspot.com/2013/05/android-latest-sdk-javalangclassnotfoun.html
+---
+
+Since the latest Android SDK revision (22) it is possible to get <code>java.lang.ClassNotFoundException</code> or other unexpected errors with Eclipse, for instance when making use of one Android project in another Android project.<br /><br /><a name='more'></a><br />An example of failure can also be found when trying to use the Android support library:<br /><br /><code>05-22 19:49:46.240: E/AndroidRuntime(4094): Caused by: java.lang.NoClassDefFoundError: android.support.v4.app.NotificationCompat$Builder</code><br /><br />To fix this, developers must now explicitly export the <b>Android Private Libraries</b>.<br /><br /><b>Fix:</b><br /><br />Open the properties of your Android projects (even the ones that are included by other projects), select <b>Java Build Path</b>, <b>Order and Export</b>, and finally check <b>Android Private Libraries</b>.

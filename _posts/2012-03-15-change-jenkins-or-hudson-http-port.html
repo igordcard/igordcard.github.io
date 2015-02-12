@@ -1,0 +1,14 @@
+---
+layout: post
+title: Change Jenkins or Hudson HTTP port number
+date: '2012-03-15T09:45:00.000Z'
+author: Igor Duarte Cardoso
+tags:
+- Jenkins
+- Hudson
+modified_time: '2012-03-24T16:28:11.512Z'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-5995561653931733554
+blogger_orig_url: http://igordcard.blogspot.com/2012/03/change-jenkins-or-hudson-http-port.html
+---
+
+One of the things server administrators of Jenkins or Hudson CI solutions often want to do, is to change the HTTP administration port.<br /><br />I'll show you how, in 4 different ways: For Windows (service), WAR file deployed in GlassFish, Natively in linux and finally, using <code>wrapper</code>.<br /><br />It's pretty simple:<br /><br /><a name='more'></a><br /><b>For Windows (service installation)</b><br />Edit <code>jenkins.xml</code> or <code>hudson.xml</code><br />Where is the <code>jenkins.xml</code> or <code>hudson.xml</code>?<br /><br />Navigate to the directory where you installed Jenkins/Hudson and you will see the <code>XML</code> at the root. Open it and look for <code><arguments></arguments></code> tag, there will be all the command arguments to be used when starting up Jenkins or Hudson.<br /><br />One of those arguments is <code>--httpPort</code>, typically:<br /><code>--httpPort=8080</code>.<br />Change <b>8080</b> to whatever port number you want.<br /><br /><br /><b>WAR File, deployed in GlassFish</b><br />You will need to change the default  HTTP port in GlassFish.<br /><br /><br /><b>Natively installed in linux</b><br />At least for <a href="http://www.yolinux.com/TUTORIALS/Hudson.html">RHEL</a>, you should be able to find the <code>/etc/sysconfig/hudson</code>, which typically has the following line, among other configuration ones:<br /><code>HUDSON_PORT="8080"</code>.<br />Change <b>8080</b> to whatever port number you want.<br /><br /><br /><b>Other linux distributions (using wrapper)</b><br />At the time of writing, Arch Linux's AUR Jenkins version uses <code>wrapper</code> to launch itself from the <code>.war</code> file.<br /><br />Edit <code>/opt/jenkins/conf/wrapper.conf</code>, find <code>wrapper.app.parameter.2=--httpPort=8070</code> (typically).<br />Change <b>8070</b> to whatever port number you want.<br /><br />This <code>wrapper</code> solution applies to any system using <code>wrapper</code>, not only linux.<br /><br /><br />Some useful links:<br /><a href="http://jenkins.361315.n4.nabble.com/How-can-i-run-hudson-on-port-80-and-as-windows-service-td375882.html">Forum talk about the Windows version</a><br /><a href="http://www.yolinux.com/TUTORIALS/Hudson.html">Configuration tutorial in RHEL</a>

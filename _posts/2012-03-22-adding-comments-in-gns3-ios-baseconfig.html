@@ -1,0 +1,16 @@
+---
+layout: post
+title: Adding comments in GNS3 IOS baseconfig files
+date: '2012-03-22T12:15:00.000Z'
+author: Igor Duarte Cardoso
+tags:
+- IOS
+- GNS3
+- Networking
+- Cisco
+modified_time: '2012-05-16T17:29:50.428+01:00'
+blogger_id: tag:blogger.com,1999:blog-7503515668102711213.post-7189123148475294169
+blogger_orig_url: http://igordcard.blogspot.com/2012/03/adding-comments-in-gns3-ios-baseconfig.html
+---
+
+If you want to write some comments in your GNS3 baseconfig files for the Cisco IOS, you can use the exclamation mark.  It is mainly used for separating commands for easier reading.  Everything that is written after the exclamation mark is ignored.  <br /><br />Here's an example:<br /><a name='more'></a><br /><pre style="border: 1px solid black;">enable ! a comment<br />configure terminal<br />interface FastEthernet0/0 ! now I will configure the FastEthernet0/0 interface<br /> ip address 192.168.1.1 255.255.255.0<br /> no shut<br />!<br />end<br /></pre><br /><br />Some links:<br /><br /><a href="http://www.cisco.com/warp/cpropub/45/tutorial.htm">Cisco IOS Command Line Interface Tutorial</a>
