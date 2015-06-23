@@ -1,0 +1,76 @@
+I hereby claim:
+
+  * I am an admin of http://igordcard.com
+  * I am igordcard (https://keybase.io/igordcard) on keybase.
+  * I have a public key with fingerprint A47D 3B18 F056 8B30 9FB0  C814 DA37 54D8 2584 275E
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "client": {
+            "name": "keybase.io node.js client",
+            "version": "0.7.9"
+        },
+        "key": {
+            "fingerprint": "a47d3b18f0568b309fb0c814da3754d82584275e",
+            "host": "keybase.io",
+            "key_id": "DA3754D82584275E",
+            "uid": "9c51a180fe1cdb2ec332c5c95d155719",
+            "username": "igordcard"
+        },
+        "merkle_root": {
+            "ctime": 1435072287,
+            "hash": "0701b58fab319325bad24cafa03ef79cdd6583f9de5cb91bbce1a0b5d6a7ea2debcc02e7a021991b28e983e3ba3c02f0fe81b01be5404b0fb8b5444d35e8e473",
+            "seqno": 251422
+        },
+        "service": {
+            "hostname": "igordcard.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1435072312,
+    "expire_in": 157680000,
+    "prev": "589dc50753174a84532da3d6c952755956587d46484e6d9fe814aa413ad7354c",
+    "seqno": 10,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1
+
+owFdkntQFVUcxy8gghAD2dRI6EQrShBd9nXu7l7DIcQZKIJIkpLysrvnXFjg3r3s
+vYCAEI2UoJY8QlEylOwBkQiaMDVpDg1lMFkyQBn54Epye+ADeYQV7TI4Zeevc87v
+c76/3/f3O1V+Hjp3t/NMyverykM3u/W6BN1zlQVsMSbIsBAzFmNijoSsDm1n5S0I
+M2LZqFDg7UgvycFWGSJ9lj14gYnA8pFil2SrSuF6Rs9hJREarj02S9YMpNgUSdPC
+eJqBlECwZhwYWIHCObOAiyxBQ55iAA1ZErA0yQCkSmbKdsddWbF5TZME1dvYJzQ+
+9g6/Xo3lzQc4ERA8weJmRIhQIJFIUaQIRA5AAgCG4DTQjpQFS1KGrECRV6BWsAUp
+2TnIpMjyvGvRIWkMQVMAZ0iSZdSSeHumZpHBCQGwZl6gCI4igcBDkhZ5M49TyMxw
+IoQGwFJmDiIgChwhCCIieFwA0MAziCchEkQRJxHD4yTBqXGSRRxLIUrgKfXerNbO
+EoKaAgEapwXcLLACoGkaUgCxiGYo1YMd5VplzEgCgibJEu2s5Esi0urW+vZ/e3pR
+tqivbIrskEU5Rw1lOhw2o+baUWjT0AJ0VDAtqJgEyQrVsf13roSK3t0RiiAjMLTF
+JinIJGkEYAwsri4tD8pXNQHLQVFFAUUwNM/SgCLVOUODOg11ZoADapsYSBtolkYG
+yGm2aZ6nCYqHDAVo8V+fhCrq4DNUTbuUYeUdeQrCSirdly/SubnrFnu6az9X57Mk
+4M53LlICdBcGPxHLPvqud7Pv15H2+JaLUYPhFS+v/DYu8FhWw98zHgMd+pjth4ei
+I1PjW20uZ9oh3z9h128dJ5b7TF08d2sTmeh9JP0wChsfSRoVWqMDyxI2/RDYXTo3
+9mF8VF56/OywLu0N26WzuQ82EN2unfmufXtrXCb81RiT68aRoSU19Tf/+Aofjlz3
+wtqYpr6Q/kGj69NU2tiwLU5f0fno6dXlG+u+qa5m8/a9FHpDue2zp4B7z9xaWUCe
+TPupPSjEa/uZ7qV5gy2OZ5duYSaf8Z6qI/HxZeGW8W2NfY8NxEXprn9wxp7c7LX/
+2hcr9vzV443X8e9Yr77eXwfPv+XZnOsf4XraWbVhzuf0oeGhmsqx3YNtaz5jk/sa
+q+omIBabcC1stiOsqN670fORJqvHa717Z+rX6rJ/n0klEhLH9wfo3jy4tXb1bb7z
+YVv2lffF1o/bf3TXHfVaE9w2Z3Hqu0Dn1baod5XYzqRO/927pp26e2/aRp4KCr3S
+HL/Dcq72lxZDH9PaQ/dM7Ei4Z6g68GzMyuoLpabLbx+wGkcOPvlAlTOu9ueUZQMr
+8jZ8nnBf2P0PhTyeVOwfcer6bGL/pe6iYt/J4PLLY78GRB9/pX3abWdY+Oj0saZd
+fjnSoooyv9hwYv2p58PSFk9WCy+2labWnzy+uOvW1o3rJk54Zn2ZHjQ1OpWclbIq
+6oCzxCP9Hw==
+=RxXd
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/igordcard
