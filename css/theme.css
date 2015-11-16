@@ -3,6 +3,22 @@ body {
     padding-bottom: 60px;
 }
 
+td {
+	padding: 2px;
+	border-left: 2px;
+	border-right: 2px;
+}
+
+th {
+	padding: 2px;
+	border-left: 2px;
+	border-right: 2px;
+}
+
+table {
+	border: 1px solid black;
+}
+
 .copyright {
     color: #ffffff;
 }
@@ -48,4 +64,12 @@ body {
 
 .author a {
     color: #ee4444;
+}
+
+.red {
+	color: #cc3333;
+}
+
+.green {
+	color: #33cc33;
 }

@@ -1,0 +1,178 @@
+---
+layout: post
+comments: true
+title: OnePlus 2 (ARMv8) Encryption Performance Benchmarks
+author: Igor Duarte Cardoso
+tags:
+- OnePlus
+- OP2
+- Android
+- Performance
+- Encryption
+- Benchmarks
+- ARMv8
+---
+
+<p>One of the few things that my next smartphone would have to have was some kind of accelerated filesystem encryption, either hardware or software-based. The reason behind this is to have both the security advantages of full disk encryption [1] and I/O performance along with power efficiency we've come to expect from the latest handsets/tablets.</p>
+
+<span style="display: block; text-align: center"><img src="/assets/impress-img.png"/ style="width: 50%"></span>
+
+<p>It was not clear to me whether the new OnePlus 2 would be able to meet these requirements, as I could only find some non-conclusive discussions around encryption ([2] and [3]), even though it seemed to be lacking hardware-based encryption as in [4]. What I knew, however, was that the new Snapdragon 808 and 810 SoCs have extended ARMv8 instructions that improve on-the-fly AES encryption/decryption performance ([5] and [6]), so I took the risk and went for the OnePlus 2.</p>
+
+<p>Last month, when I got it, I immediately made some benchmarking before and after encryption. I am finally sharing with you the results of these benchmarks so you can have peace of mind. The tests/results being made/measured are the following:</p>
+<ul>
+<li>AnTuTu 64 relevant scores;</li>
+<li>Androbench I/O performance data;</li>
+<li>Boot time.</li>
+</ul>
+
+<p>The actual phone used was the OnePlus 2 A2003 64GB, with stock OxygenOS 2.1.1 unrooted and untouched, and a total of 17 installed apps (plus 140 system apps). Battery was always between 70% and 85% as I would recharge it to keep it in range. Environment temperature was between 15 and 17 degrees Celcius. I have waited between 30 to 60 minutes between each test, making sure the device had time to reach a stable temperature and prevent premature CPU/GPU throttling for each next test. Moreover, each test was made after a fresh boot to reduce RAM fragmentation, app caching, etc., providing a clean and similar environment across all test instances. Finally, airplane mode was kept enabled.</p>
+<br/>
+
+<h4>AnTuTu 64 relevant scores</h4>
+
+<p>The AnTuTu (64-bit) app version used was 5.7.1 and the tests were carried with horizontal orientation. In the screenshots presented at the bottom of the page, the "non-verified score" warning can be safely ignored as it was a consequence of having airplane mode enabled, preventing AnTuTu from checking the phone's model authenticity.</p>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Unencrypted</th>
+    <th>Encrypted</th>
+    <th>Difference</th>
+  </tr>
+  <tr>
+    <td>Global</td>
+    <td>61419</td>
+    <td>62363</td>
+    <td><span class="green">+1.5%</span></td>
+  </tr>
+  <tr>
+    <td>Storage I/O</td>
+    <td>2559</td>
+    <td>2555</td>
+    <td><span class="red">-0.1%</span></td>
+  </tr>
+  <tr>
+    <td>Database I/O</td>
+    <td>630</td>
+    <td>620</td>
+    <td><span class="red">-1.6%</span></td>
+  </tr>
+</table>
+<br/>
+
+<h4>Androbench I/O performance data</h4>
+<table>
+  <tr>
+    <th></th>
+    <th>Unencrypted</th>
+    <th>Encrypted</th>
+    <th>Difference</th>
+  </tr>
+  <tr>
+    <td>Sequential Read</td>
+    <td>231.32 MB/s</td>
+    <td>232.11 MB/s</td>
+    <td><span class="green">+0.3%</span></td>
+  </tr>
+  <tr>
+    <td>Sequential Write</td>
+    <td>124.66 MB/s</td>
+    <td>122.4 MB/s</td>
+    <td><span class="red">-1.8%</span></td>
+  </tr>
+  <tr>
+    <td>Random Read</td>
+    <td>5369.62 IOPS</td>
+    <td>5208.13 IOPS</td>
+    <td><span class="red">-3.0%</span></td>
+  </tr>
+  <tr>
+    <td>Random Write</td>
+    <td>3631.0 IOPS</td>
+    <td>3268.39 IOPS</td>
+    <td><span class="red">-10.0%</span></td>
+  </tr>
+  <tr>
+    <td>SQLite Insert</td>
+    <td>616.86 TPS</td>
+    <td>510.21 TPS</td>
+    <td><span class="red">-18.0%</span></td>
+  </tr>
+  <tr>
+    <td>SQLite Update</td>
+    <td>285.55 TPS</td>
+    <td>276.15 TPS</td>
+    <td><span class="red">-3.3%</span></td>
+  </tr>
+  <tr>
+    <td>SQLite Delete</td>
+    <td>299.5 TPS</td>
+    <td>269.97 TPS</td>
+    <td><span class="red">-9.9%</span></td>
+  </tr>
+  <tr>
+    <td>Macro Browser</td>
+    <td>125.0 ms</td>
+    <td>186.75 ms</td>
+    <td><span class="red">+49.4%</span></td>
+  </tr>
+  <tr>
+    <td>Macro Market</td>
+    <td>140.5 ms</td>
+    <td>133.25 ms</td>
+    <td><span class="green">-5.2%</span></td>
+  </tr>
+  <tr>
+    <td>Macro Camera</td>
+    <td>87.0 ms</td>
+    <td>103.0 ms</td>
+    <td><span class="red">+18.4%</span></td>
+  </tr>
+  <tr>
+    <td>Macro Camcorder</td>
+    <td>166.0 ms</td>
+    <td>202.5 ms</td>
+    <td><span class="red">+22.0%</span></td>
+  </tr>
+</table>
+<br/>
+
+<h4>Boot time</h4>
+<p>The boot time was measured as the time elapsed from the moment the finger pressed the power button until the moment the boot screen faded into the launcher. For the encrypted scenario, the boot time is the sum of the time elapsed from the moment the finger pressed the power button until the phone asked for the encryption PIN, plus the time since confirming the PIN until the moment the boot screen faded into the launcher. I also provide the duration of each of the 2 boot phases in the encrypted scenario. The margin of (human) error for the boot time is probably around half a second.</p>
+<table>
+  <tr>
+    <th></th>
+    <th>Unencrypted</th>
+    <th>Encrypted</th>
+    <th>Difference</th>
+  </tr>
+  <tr>
+    <td>Boot time</td>
+    <td>33.5 sec</td>
+    <td>63.5 sec</td>
+    <td><span class="red">+89.6%</span></td>
+  </tr>
+</table>
+<p>For the encrypted scenario, the phone took 29.0 seconds to reach the PIN dialog and another 34.5 seconds to reach the launcher, after confirming the PIN.</p>
+<br/>
+
+<h4>Conclusions</h4>
+<p>The OnePlus 2 does not have hardware-based encryption as in [4] but rather software-based encryption as in [5]. There is no noticeable performance drop observed visually. Considering the results, the performance drop is there but is relatively low, insignificant or inexistent depending on the use case, unlike with Android 5.0 in the Nexus 6 [7]. The most impacted use cases were database (SQLite) insert operations at 18.0% performance drop, the browser macro test taking 49.4% longer to finish, and the camera/camcorder macro tests taking 18.4%/22% longer to finish, respectively. All other tests had a performance penalty below 10%, with some really unchanged. It should be noted that I didn't not iterate the tests more than once, meaning that some results might have been affected negatively, which also justifies why sequential read is faster when encrypted. Boot time clearly takes long and requires us to input the PIN in the middle of the process, every time. Finally, let me note that these results should be more or less equivalent in other Snapdragon 810 based devices, like the Nexus 6P, and should also be similar in other ARMv8 devices, assuming they are running Android 5.1 as well. Because you like seeing actual screenshots, here they go:</p>
+<ul>
+<li><a href="/assets/antutu-unencrypted.png">AnTuTu - Unencrypted</a></li>
+<li><a href="/assets/antutu-encrypted.png">AnTuTu - Encrypted</a></li>
+<li><a href="/assets/androbench-unencrypted.png">Androbench - Unencrypted</a></li>
+<li><a href="/assets/androbench-encrypted.png">Androbench - Encrypted</a></li>
+</ul>
+
+<h4>References</h4>
+<ul>
+<li>[1] <a href="https://source.android.com/security/encryption/">https://source.android.com/security/encryption/</a></li>
+<li>[2] <a href="https://forums.oneplus.net/threads/op2-oxygen-os-2-1-encryption.373879/">https://forums.oneplus.net/threads/op2-oxygen-os-2-1-encryption.373879/</a></li>
+<li>[3] <a href="https://forums.oneplus.net/threads/oneplus-two-oxygen-os-encryption-ota-updates.362290/">https://forums.oneplus.net/threads/oneplus-two-oxygen-os-encryption-ota-updates.362290/</a></li>
+<li>[4] <a href="http://nelenkov.blogspot.com/2015/05/hardware-accelerated-disk-encryption-in.html">http://nelenkov.blogspot.com/2015/05/hardware-accelerated-disk-encryption-in.html</a></li>
+<li>[5] <a href="http://www.androidpolice.com/2015/09/30/the-nexus-5x-and-6p-have-software-accelerated-encryption-but-the-nexus-team-says-its-better-than-hardware-encryption/">http://www.androidpolice.com/2015/09/30/the-nexus-5x-and-6p-have-software-accelerated-encryption-but-the-nexus-team-says-its-better-than-hardware-encryption/</a></li>
+<li>[6] <a href="https://browser.primatelabs.com/geekbench3/compare/3839281?baseline=3823669">https://browser.primatelabs.com/geekbench3/compare/3839281?baseline=3823669</a></li>
+<li>[7] <a href="http://www.anandtech.com/show/8725/encryption-and-storage-performance-in-android-50-lollipop">http://www.anandtech.com/show/8725/encryption-and-storage-performance-in-android-50-lollipop</a></li>
+</ul>
