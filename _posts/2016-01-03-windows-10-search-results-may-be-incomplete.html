@@ -1,0 +1,35 @@
+---
+layout: post
+comments: true
+title: Windows 10 Search - These results may be incomplete
+author: Igor Duarte Cardoso
+tags:
+- Windows
+- Windows8
+- Windows10
+- Fix
+- Workaround
+---
+
+<p>Ever since my laptop was updated from Windows 8.1 to Windows 10 through Windows Update, the search feature has been behaving very poorly due to some past damage buried deep in Windows, its registry or somewhere within/around the Indexing service. This post is not about discussing what might be causing all these issues, but to provide a workaround which might work for some instances of two specific symptoms: missing searched items in the start menu, including items from the Control Panel, and a constant warning claiming that "These results may be incomplete..." as can be seen in the partial screenshot below.</p>
+
+<span style="display: block; text-align: center"><img src="/assets/windows10-search.png" style="width: 50%"/></span>
+<br/>
+
+<p>At the end of the post I provide links to discussions and suggestions I found about the same symptoms, although none of them provided this new solution which, so far, is the single one that worked in my setup. Be sure to check them first.</p>
+
+<p>This workaround was applied to the latest Windows update to version 1511 (build 10586), as the update itself did not fix anything in my setup.</p>
+
+<p>The workaround is simple, just fire up the Indexing options and add the following directory to the indexed locations: <b><tt>C:\Users\YOUR_USER\AppData\Local\Packages\windows.immersivecontrolpanel_cw5n1h2txyewy\LocalState</tt></b>.</p>
+
+<p>If your issue is somehow caused by the immersive control panel (also why control panel items might be missing  from search), then hopefully this will work. Meanwhile, you might have difficulty finding the Indexing options because of this exact problem, so you can just call it directly by inserting <b><tt>rundll32.exe shell32.dll,Control_RunDLL srchadmin.dll</tt></b> on the Run dialog (WINKEY+R).</p>
+
+<h4>Related</h4>
+<ul>
+<li>[1] <a href="https://www.reddit.com/r/Windows10/comments/3mergr/cant_find_start_menu_items_via_search_anymore_any/">Can't find Start Menu items via search anymore, any way I can get them back?</a></li>
+<li>[2] <a href="http://answers.microsoft.com/en-us/windows/forum/windows_10-win_cortana/no-settings-or-control-panel-items-in-search/36fa2c3a-9589-4b6a-9a94-030060c87386">No settings or control panel items in search</a></li>
+<li>[3] <a href="http://www.intowindows.com/how-to-fix-windows-10-search-issues-by-rebuilding-index/">How To Fix Windows 10 Search Issues By Rebuilding Index</a></li>
+<li>[4] <a href="http://linustechtips.com/main/topic/469862-windows-10-search-function-issue-these-results-may-be-incomplete-any-idea-how-to-fix-this/">Windows 10 Search Function Issue- "These results may be incomplete...". Any idea how to fix this?</a></li>
+<li>[5] <a href="http://www.askvg.com/fix-we-are-getting-search-ready-problem-in-windows-10/">[Fix] We’re Getting Search Ready Problem in Windows 10</a></li>
+<li>[6] <a href="http://forums.windowscentral.com/windows-10/372200-why-my-start-menu-not-working-windows-10-upgrade.html">Why is my start menu not working in the Windows 10 upgrade?</a></li>
+</ul>
