@@ -4,7 +4,7 @@ name: Igor D.C.
 description: What comes to mind
 
 # url is currently only used only for the RSS feed in feed.xml
-url: http://blog.igordcard.com
+url: http://igordc.com
 
 gems:
   - jekyll-sitemap

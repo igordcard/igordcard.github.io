@@ -1,6 +1,6 @@
 I hereby claim:
 
-  * I am an admin of http://igordcard.com
+  * I am an admin of http://igordc.com
   * I am igordcard (https://keybase.io/igordcard) on keybase.
   * I have a public key with fingerprint A47D 3B18 F056 8B30 9FB0  C814 DA37 54D8 2584 275E
 
@@ -25,7 +25,7 @@ To do so, I am signing this object:
             "seqno": 251422
         },
         "service": {
-            "hostname": "igordcard.com",
+            "hostname": "igordc.com",
             "protocol": "http:"
         },
         "type": "web_service_binding",
