@@ -141,8 +141,8 @@ well).</p>
 partitions in the following order:</p>
 
 <ul>
-<li>(optional) NTFS/FAT32/exFAT partition to be read by both Android and Windows/Linux – whatever capacity makes sense to you. It is VERY IMPORTANT that this partition be the first partition on the list, otherwise Windows will not be able to see it (Linux will still do the job);</li>
-<li>Tiny FAT16 partition (anything above 20 MB should be safe) – set the following flags: efs, boot (VERY IMPORTANT);</li>
+<li>(optional) NTFS/FAT32/exFAT partition to be read by both Android and Windows/Linux – whatever capacity makes sense to you. It is VERY IMPORTANT that this partition be the first partition on the list, otherwise Windows will not be able to see it (Linux will still do the job). You must also set the <code>boot</code> flag, which will tell Windows that this is the "active" partition.;</li>
+<li>Tiny FAT16 partition (anything above 20 MB should be safe) – set the following flag: <code>efs</code> (VERY IMPORTANT, otherwise you won't be able to boot the SD card);</li>
 <li>All the remaining space should be converted to an NTFS partition with at least 4GB (the less you have here, the quicker Android will run out-of-space and become unstable… 4GB is extremely little in case you intend to install some of the most popular apps, to illustrate).</li>
 </ul>
 
