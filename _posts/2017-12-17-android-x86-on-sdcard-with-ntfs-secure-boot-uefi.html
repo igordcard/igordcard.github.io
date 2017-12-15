@@ -1,0 +1,584 @@
+---
+layout: post
+comments: true
+title: Android-x86 on SD card with NTFS, Secure Boot and UEFI
+author: Igor D.C.
+tags:
+- Android-x86
+- Android
+- Linux
+- Fix
+---
+
+
+
+<p>Android-x86 on SD card with NTFS, Secure Boot
+and UEFI</p>
+
+<span style="display: block; text-align: center"><img src="/assets/android-x86.png"/ style="width: 50%"></span>
+
+<p>I will show you how to install the 64-bit
+version of Android-x86 7.1rc2 (and likely other versions such as CM14.1 rc1, or
+other operating systems based on Android-x86 such as RemixOS), on a SD/microSD
+card using NTFS as the filesystem (thus providing a fast Android experience)
+with Secure Boot and UEFI boot.</p>
+
+<p>&nbsp;</p>
+
+<p>Most of the tutorials available on the web show
+how to install Android-x86 on a USB storage device. Even though I was able to
+find some information about how to install on a microSD card reader, I found no
+information whatsoever about doing so together with:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+1.&nbsp;&nbsp;&nbsp;
+>Using NTFS (without giving up Secure Boot) – for
+performance reasons;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+2.&nbsp;&nbsp;&nbsp;
+>What to do when the microSD card can be booted
+but Android-x86 never gets “detected”.</p>
+
+<p>Using NTFS as the filesystem for storing
+Android-x86’s virtual partitions was a priority for me, since I originally
+tested Android-x86 on a cheap USB stick and observed that the
+performance/latency difference of EXT4 or FAT32 vs. NTFS was jaw-dropping, with
+the EXT4 or FAT32 being almost unusable.</p>
+
+<p>I mentioned not giving up Secure Boot when using
+NTFS. Well, I would eventually have made the effort to give up Secure Boot in
+order to use Android-x86 with NTFS. However, I simply was not successful in
+booting to GRUB when using the card, but was successful when using the USD
+drive. Using the card simply printed the following and froze:</p>
+
+<p class=Body>>tGRUB Loading
+stage1.5.</p>
+
+<p class=Body>>&nbsp;</p>
+
+<p class=Body>>So, to summarize, this post
+will allow you to:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Install Android-x86 on a SD/microSD card (via a
+built-in reader)</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Work-around Android-x86’s rejection of some card
+readers</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>UEFI-boot into the Android-x86 installation</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Keep Secure Boot enabled</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Use NTFS as the filesystem for the Android virtual
+partitions, for high performance</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Use either a GPT or a MS-DOS partition table</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Keep using part of your SD card as a removable
+storage on Windows/Linux</p>
+
+<p>&nbsp;</p>
+
+<p>And here are some quick links to the multiple
+sections:</p>
+
+<p class=MsoListParagraph><b>>System configuration</b></p>
+
+<p class=MsoListParagraph><b>>Prepare your devices</b></p>
+
+<p class=MsoListParagraph><b>>Install Android-x86</b></p>
+
+<p class=MsoListParagraph><b>>Making it boot</b></p>
+
+<p class=MsoListParagraph><b>>Get the necessary kernel modules</b></p>
+
+<p class=MsoListParagraph><b>>Happy booting</b></p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Before moving on, make sure that:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Your computer includes a SD/microSD card reader;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Your computer can UEFI-boot from said reader;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>You have access to parted or GParted (you can
+use an Ubuntu live image or the specialized Parted Magic live image for this);</p>
+
+<p>The computer I have used for my installation was
+the Dell Latitude 7480, and from what I can gather any Dell E7x40, E7x50,
+E7x60, E7x70, 7x80 should work the same way, if not many others from Dell. I
+can’t guarantee that this post will work with your computer even if the above 2
+points tick, since it will depend on the manufacturer of the card reader, as
+well as whether Linux kernel modules are available for it in Android-x86.</p>
+
+<p>&nbsp;</p>
+
+<p>I will mention keyboard shortcuts, terminology,
+screens and show photographs from the Dell Latitude 7480. If you are using a
+different laptop, you’ll need to find the equivalent items. I will also mention
+microSD specifically from now on, since that’s the card type this laptop can
+read.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><b>>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+lang=EN-US>System configuration</b></p>
+
+<p class=Body><b>>&nbsp;</b></p>
+
+<p>Get to the BIOS setup tool of the computer
+(press F2 during the POST screen – right after turning on the computer) and:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Make sure Secure Boot is enabled; <span
+lang=EN-US>(show image)</p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+lang=EN-US style='font-family:"Courier New"'>o&nbsp;&nbsp;
+>Go to</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Make sure Legacy boot is disabled; <span
+lang=EN-US>(show image)</p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+lang=EN-US style='font-family:"Courier New"'>o&nbsp;&nbsp;
+>Go to</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Make sure SD (Secure Digital) card boot is
+enabled; >(show image – need to take
+it still)</p>
+
+<p class=MsoListParagraph style='margin-left:1.0in;text-indent:-.25in'><span
+lang=EN-US style='font-family:"Courier New"'>o&nbsp;&nbsp;
+>Go to</p>
+
+<p>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><b>>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+lang=EN-US>Prepare your devices</b></p>
+
+<p>&nbsp;</p>
+
+<p>You will need 2 or 3 devices:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Flash Android-x86 7.1rc2 64bit to a USB drive
+(will be the installer) – you can use <span class=Hyperlink0><span
+lang=EN-US><a href="https://sourceforge.net/projects/win32diskimager/">https://sourceforge.net/projects/win32diskimager/</a><span
+lang=EN-US> for this;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Grab a microSD card with at least 8GB of
+capacity (will be the destination of the installation)</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Optionally flash a live image to another USB
+drive, or use a live CD/DVD that provides the parted, GParted or equivalent
+tools for partitioning the microSD card – if you already have Linux on your
+computer you can simply use it.</p>
+
+<p>The microSD card needs to have either a GPT or a
+MS-DOS partition table (I have used and tested MS-DOS, but GPT should work as
+well).</p>
+
+<p>Then make sure the card has the following
+partitions in the following order:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>(optional) NTFS/FAT32/exFAT partition to be read by both Android and
+Windows/Linux – whatever capacity makes sense to you. It is VERY IMPORTANT that
+this partition be the first partition on the list, otherwise Windows will not
+be able to see it (Linux will still do the job).</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>Tiny FAT16 partition (anything above 20 MB should be safe) – set the
+following flags: efs, boot (VERY IMPORTANT).</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+lang=EN-US>All the remaining space should be converted to an NTFS partition
+with at least 4GB (the less you have here, the quicker Android will run
+out-of-space and become unstable… 4GB is extremely little in case you intend to
+install some of the most popular apps, to illustrate)</p>
+
+<p class=Body>>(show image of gparted)</p>
+
+<p>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><b>>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+lang=EN-US>Install Android-x86</b></p>
+
+<p class=Body><b>>&nbsp;</b></p>
+
+<p>Turn the computer on again, with the Android-x86
+installer USB drive plugged-in, and press the F10 key to launch the one-time
+boot menu. Choose the USB device >(show
+image)>.</p>
+
+<p>&nbsp;</p>
+
+<p>The Android-x86 GRUB menu will show up, choose
+the third option: >(show image)<span
+lang=EN-US>.</p>
+
+<p>When you are faced with the list of
+devices/partitions where you can install Android-x86, you might notice that the
+partitions of your microSD card are missing (they are in the Dell Latitude
+7480). This depends on the manufacturer of the microSD card reader but my
+expectation is that they will be missing more often than not. In order to make
+the partitions show up on the list, the correct kernel module for the card
+reader needs to be loaded. For the Dell Latitude 7480 the module name is <span
+lang=EN-US>rtsx_pci_sdmmc>,
+but it may be different in other computers. One way to find the name of the
+module is to launch another Linux-based OS such as Ubuntu or Parted Magic and
+running the following commands to inspect their output and obtain the name of
+the module:</p>
+
+<p>$ lsmod | grep –i sd</p>
+
+<p>$ lsmod | grep –i mmc</p>
+
+<p>$ lspci –kv | grep –<span lang=IT>i card</p>
+
+<p>Or by finding out the module driving
+/dev/mmcblk0p1, for example. You can check here for more information: <span
+class=Hyperlink0>><a
+href="https://unix.stackexchange.com/questions/97676/how-to-find-the-driver-module-associated-with-a-device-on-linux">https://unix.stackexchange.com/questions/97676/how-to-find-the-driver-module-associated-with-a-device-on-linux</a></p>
+
+<p>Once you know the module name, in my case <span
+lang=EN-US>rtsx_pci_sdmmc>,
+just boot the Android-x86 usb drive again and, once on the list of partitions,
+press Ctrl+Alt+F2 to switch to tty2 and run the following command (modify
+accordingly):</p>
+
+<p>$ modprobe 
+style='font-family:Consolas'>rtsx_pci_sdmmc</p>
+
+<p>Then press Ctrl+Alt+F1 to go back to tty1 (where
+the list of partitions is), and select “Detect devices”. Hopefully, the 2/3
+partitions of your microSD card will now show up and will probably be called
+mmcblk0p1 and mmcblk0p2 and mmcblk0p3. The numbers will reflect the order of
+the partitions you created earlier (first to last), and the filesystem type
+will also give you another indication as to which partition is which.</p>
+
+<p>Choose the microSD card NTFS partition as the
+destination of the Android-x86 installation. (show image)</p>
+
+<p class=Body>>&nbsp;</p>
+
+<p>When asked if you want to install EFI GRUB, say
+yes.</p>
+
+<p>When asked if you want to make the /system
+partition read+write, say yes.</p>
+
+<p>When asked how big you want the /data partition
+to be, make it about 1500MB if you chose to have a 4GB NTFS partition. For
+every additional GB your NTFS partition has, add an additional 1024MB to the
+/data partition size. I am using an NTFS partition with 23GB and my /data has a
+capacity of 20GB. If the microSD card isn’t very fast, you might want to try
+with only 600MB to make it quicker just so you can check if Android-x86 works
+in the end (and then repeat the installation with more space for /data).</p>
+
+<p>&nbsp;</p>
+
+<p>Then wait from a few minutes to more than an
+hour, depending on the /data size and the microSD card speed.</p>
+
+<p>When finished, select Reboot. However,
+Android-x86 won’t work out-of-the-box after rebooting.</p>
+
+<p>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><b>>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+lang=EN-US>Making it boot</b></p>
+
+<p class=Body><b>>&nbsp;</b></p>
+
+<p>At this point, Android-x86 is already installed
+on the microSD card. However, the USB installation drive/media will be used one
+more time in the next section, so keep it around.</p>
+
+<p>To make Android boot there are 2 important
+issues that need to be corrected (might be only 1 in some cases):</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Just like 
+style='font-family:Consolas'>rtsx_pci_sdmmc> (or another
+module) was missing during installation, so will it when Android-x86 attempts
+to boot (the initial ramdisk that GRUB loads, which is then supposed to load
+the rest of operating system, will not include the microSD card reader kernel
+module by default,  and so will simply fail by getting stuck in “Detecting
+Android-x86…………………………”</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Additionally, the initial ramdisk (initrd.img)
+and related files (kernel and ramdisk.img) will be present in the NTFS
+partition but GRUB will not be able to read from the NTFS partition because 1)
+GRUB was not installed with the NTFS GRUB module and 2) even if it was (or if
+manually installed), Secure Boot will prevent GRUB from reading non-FAT
+partitions. So, with Secure Boot disabled, one could copy the ntfs.mod from
+another GRUB and then issue “insmod ntfs” and “set root=’(hd0,3)’ assuming the
+card reader is hd0, before the existing GRUB commands for the Android-x86 boot
+entry, and it would work (but again, Secure Boot needs to be disabled).</p>
+
+<p>&nbsp;</p>
+
+<p>At this point, go back to your Linux
+installation or Linux live image.</p>
+
+<p>There, 3 things have to be done with regards to
+the partitions and files from Android-x86:</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Extract the Android-x86 squashfs image in order
+to search and copy necessary kernel modules</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Copy missing kernel modules to the initrd image</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+>Copy new initrd image, kernel and ramdisk files
+to the FAT16 partition instead of the NTFS partition</p>
+
+<p class=MsoListParagraph style='margin-left:0in'>>The next
+section will go through all of this.</p>
+
+<p>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><b>>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+lang=EN-US>Get the necessary kernel modules</b></p>
+
+<p>To get the necessary kernel modules for booting
+Android-x86 (only rtsx_pci_sdmmc and its dependency rtsx_pci in my scenario –
+you should look for the dependencies of the modules you need using the lsmod
+command), the Android-x86 live squashfs image should first be extracted so that
+you can access its files. So plug in the live USB drive and mount it in your
+Linux system. Then follow the following steps:</p>
+
+<p>$ cd &amp;&amp; mkdir sfs # create a directory
+locally to store the squashfs contents</p>
+
+<p>$ cp /path/to/android_x86_live/system.sfs ~ #
+copy the system.sfs squashfs file</p>
+
+<p>$ cd &amp;&amp; unsquashfs system.sfs # extract
+the image from it</p>
+
+<p>$ mount -t ext4 system.img sfs # mount it to the
+directory we created earlier</p>
+
+<p>$ cd
+~/sfs/lib/modules/4.9.54-android-x86_64-gfb63269e5ada/kernel # change kernel
+version here accordingly, if not using 7.1rc2</p>
+
+<p>$ find . -name *rtsx* # find the path to the
+missing module (and similarly named ones)</p>
+
+<p>./drivers/memstick/host/rtsx_pci_ms.ko</p>
+
+<p>./drivers/memstick/host/rtsx_usb_ms.ko</p>
+
+<p>./drivers/mfd/rtsx_pci.ko               # yep, I
+need this one</p>
+
+<p>./drivers/mfd/rtsx_usb.ko</p>
+
+<p>./drivers/mmc/host/rtsx_pci_sdmmc.ko    # yep, I
+need this one</p>
+
+<p>./drivers/mmc/host/rtsx_usb_sdmmc.ko</p>
+
+<p>&nbsp;</p>
+
+<p>You now know where the needed modules are, so
+let’s temporarily switch to something else: getting the original initrd image
+in order to later update it with the additional modules.</p>
+
+<p>&nbsp;</p>
+
+<p>$ cd &amp;&amp; mkdir initrd # create a
+directory locally to store the initrd<span lang=FR> contents</p>
+
+<p>$ cp /path/to/android_ntfs_partition/android-7.1-rc2/initrd.img
+initrd/ # copy the initrd file</p>
+
+<p>$ cd initrd &amp;&amp; mv initrd.img initrd.gz</p>
+
+<p>$ <span lang=DE>gunzip initrd.gz</p>
+
+<p>$ cpio -id &lt; initrd # extract the
+cpio-archived initrd image</p>
+
+<p>$ rm initrd</p>
+
+<p>&nbsp;</p>
+
+<p>The initrd image is now extracted, so you can
+modify it as needed. In terms of the microSD card reader kernel module, the 2
+modules above will be copied to initrd and will be loaded by changing one of
+the scripts (the same one that issues the “Detecting Android-x86” message).</p>
+
+<p>&nbsp;</p>
+
+<p>$ cd
+~/sfs/lib/modules/4.9.54-android-x86_64-gfb63269e5ada/kernel</p>
+
+<p>$ <span lang=NL>cp <span
+lang=EN-US>./drivers/mfd/rtsx_pci.ko ~/initrd/lib/modules/</p>
+
+<p>$ cp ./drivers/mmc/host/rtsx_pci_sdmmc.ko
+~/initrd/lib/modules/</p>
+
+<p>$ vim ~/initrd/init # use any editor you feel
+comfortable to edit this file</p>
+
+<p>&nbsp;</p>
+
+<p>Inside the init file, look for the following:</p>
+
+<p class=Body><span lang=PT>echo -n Detecting Android-x86…</p>
+
+<p class=Body><span lang=PT>&nbsp;</p>
+
+<p>Before that (should be around line 135), add the
+following:</p>
+
+<p>&nbsp;</p>
+
+<p class=Body><span lang=ES-TRAD>echo &quot;Loading SD card <span
+lang=EN-US>reader modules (rtsx_pci, rtsx_pci_sdmmc)… (credit:
+igordc.com)&quot;</p>
+
+<p>busybox insmod /lib/modules/rtsx_pci.ko</p>
+
+<p>busybox insmod /lib/modules/rtsx_pci_sdmmc.ko</p>
+
+<p>sleep 2</p>
+
+<p>&nbsp;</p>
+
+<p>What these lines do is to simply load the
+modules manually, from where we copied them to (although from the perspective
+of the initial ramdisk already running, so don’t doubt that the paths are
+correct in the lines above).</p>
+
+<p>Change the message in the “echo” line however
+you want, or remove it.</p>
+
+<p class=Body>>&nbsp;</p>
+
+<p>Now that the initrd image is finally ready, it’s
+time to turn it back into a single file.</p>
+
+<p>$ >cd ~/initrd</p>
+
+<p>$ find . >| cpio -o -H newc
+| gzip &gt; ../initrd.img</p>
+
+<p>&nbsp;</p>
+
+<p class=Body>And copy that file, along with the ramdisk and kernel files that
+are in the NTFS partition, into the FAT16 partition. This will make GRUB find
+the files even if Secure Boot is disabled or the NTFS GRUB module is not
+present.</p>
+
+<p class=Body>&nbsp;</p>
+
+<p class=Body>$ mkdir />path/to/android_fat16_partition/android-7.1-rc2</p>
+
+<p class=Body>$ cp ~/initrd.img />path/to/android_fat16_partition/android-7.1-rc2/</p>
+
+<p>$ cp />path/to/android_ntfs_partition/android-7.1-rc2/ramdisk
+/>path/to/android_fat16_partition/android-7.1-rc2/ramdisk</p>
+
+<p>$ cp />path/to/android_ntfs_partition/android-7.1-rc2/kernel
+/>path/to/android_fat16_partition/android-7.1-rc2/kernel</p>
+
+<p class=Body>>&nbsp;</p>
+
+<p class=Body>&nbsp;</p>
+
+<p class=MsoListParagraph style='text-indent:-.25in'><b>>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </b><b><span
+lang=EN-US>Happy booting</b></p>
+
+<p>With a fixed initrd.img together with a new
+location for it and its relatives, GRUB should now be able to boot the initial
+ramdisk  which should be able to automatically detected Android-x86 on the
+microSD card, since any missing kernel modules will now be loaded. <span
+lang=EN-US>(show image)</p>
+
+<p class=MsoListParagraph style='margin-left:0in'><b>
+style='color:red'>&nbsp;</b></p>
+
+<p class=MsoListParagraph style='margin-left:0in'><b>>Links</b></p>
+
+<p class=Body><span class=Hyperlink0>><a
+href="https://sourceforge.net/p/android-x86/bootable_newinstaller/ci/nougat-x86/tree/initrd/init">https://sourceforge.net/p/android-x86/bootable_newinstaller/ci/nougat-x86/tree/initrd/init</a></p>
+
+
+
+
+<h4>Related</h4>
+<ul>
+<li>[1] <a href="https://www.reddit.com/r/Windows10/comments/3mergr/cant_find_start_menu_items_via_search_anymore_any/">Can't find Start Menu items via search anymore, any way I can get them back?</a></li>
+<li>[2] <a href="http://answers.microsoft.com/en-us/windows/forum/windows_10-win_cortana/no-settings-or-control-panel-items-in-search/36fa2c3a-9589-4b6a-9a94-030060c87386">No settings or control panel items in search</a></li>
+<li>[3] <a href="http://www.intowindows.com/how-to-fix-windows-10-search-issues-by-rebuilding-index/">How To Fix Windows 10 Search Issues By Rebuilding Index</a></li>
+<li>[4] <a href="http://linustechtips.com/main/topic/469862-windows-10-search-function-issue-these-results-may-be-incomplete-any-idea-how-to-fix-this/">Windows 10 Search Function Issue- "These results may be incomplete...". Any idea how to fix this?</a></li>
+<li>[5] <a href="http://www.askvg.com/fix-we-are-getting-search-ready-problem-in-windows-10/">[Fix] We’re Getting Search Ready Problem in Windows 10</a></li>
+<li>[6] <a href="http://forums.windowscentral.com/windows-10/372200-why-my-start-menu-not-working-windows-10-upgrade.html">Why is my start menu not working in the Windows 10 upgrade?</a></li>
+</ul>
