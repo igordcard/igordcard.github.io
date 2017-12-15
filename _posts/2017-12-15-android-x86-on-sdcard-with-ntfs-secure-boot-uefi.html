@@ -159,7 +159,7 @@ boot menu. Choose the USB device.</p>
 <p>The Android-x86 GRUB menu will show up, choose the third option:</p>
 <span style="display: block; text-align: center"><img width="640" src="/assets/androidinstall.jpg"/></span>
 
-
+<br/>
 <p>When you are faced with the list of
 devices/partitions where you can install Android-x86, you might notice that the
 partitions of your microSD card are missing (they are in the Dell Latitude
@@ -346,8 +346,8 @@ you want, or remove it.</p>
 time to turn it back into a single file.</p>
 
 <pre class="prettyprint">
-$ >cd ~/initrd
-$ find . >| cpio -o -H newc | gzip &gt; ../initrd.img
+$ cd ~/initrd
+$ find . | cpio -o -H newc | gzip &gt; ../initrd.img
 </pre>
 
 <p>And copy that file, along with the ramdisk and kernel files that
@@ -356,10 +356,10 @@ the files even if Secure Boot is disabled or the NTFS GRUB module is not
 present.</p>
 
 <pre class="prettyprint">
-$ mkdir />path/to/android_fat16_partition/android-7.1-rc2
-$ cp ~/initrd.img />path/to/android_fat16_partition/android-7.1-rc2/
-$ cp />path/to/android_ntfs_partition/android-7.1-rc2/ramdisk /path/to/android_fat16_partition/android-7.1-rc2/ramdisk
-$ cp />path/to/android_ntfs_partition/android-7.1-rc2/kernel /path/to/android_fat16_partition/android-7.1-rc2/kernel
+$ mkdir /path/to/android_fat16_partition/android-7.1-rc2
+$ cp ~/initrd.img /path/to/android_fat16_partition/android-7.1-rc2/
+$ cp /path/to/android_ntfs_partition/android-7.1-rc2/ramdisk /path/to/android_fat16_partition/android-7.1-rc2/ramdisk
+$ cp /path/to/android_ntfs_partition/android-7.1-rc2/kernel /path/to/android_fat16_partition/android-7.1-rc2/kernel
 </pre>
 
 <p>&nbsp;</p>
