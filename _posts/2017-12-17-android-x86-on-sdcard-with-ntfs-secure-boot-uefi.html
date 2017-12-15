@@ -114,11 +114,11 @@ read.</p>
 
 <ul>
 <li>Make sure Legacy boot is disabled: Go to General, Advanced Boot Options and uncheck Enable Legacy Option ROMs;</li>
-<img width="640" src="/assets/legacyboot.jpg"/>
+<span style="display: block; text-align: center"><img width="640" src="/assets/legacyboot.jpg"/></span>
 <li>Make sure Secure Boot is enabled: Go to Secure Boot, Secure Boot Enabled, and check Enabled;</li>
-<img width="640" src="/assets/secureboot.jpg"/>
+<span style="display: block; text-align: center"><img width="640" src="/assets/secureboot.jpg"/></span>
 <li>Make sure SD card boot is enabled: Go to System Configuration, Miscellaneous Devices and check Secure Digital (SD) Card Boot.</li>
-<img width="640" src="/assets/sdcardboot.jpg"/>
+<span style="display: block; text-align: center"><img width="640" src="/assets/sdcardboot.jpg"/></span>
 </ul>
 
 <p>&nbsp;</p>
@@ -146,7 +146,7 @@ partitions in the following order:</p>
 <li>All the remaining space should be converted to an NTFS partition with at least 4GB (the less you have here, the quicker Android will run out-of-space and become unstable… 4GB is extremely little in case you intend to install some of the most popular apps, to illustrate).</li>
 </ul>
 
-<img width="640" src="/assets/gparted.png"/>
+<span style="display: block; text-align: center"><img src="/assets/gparted.png"/></span>
 
 <p>&nbsp;</p>
 
@@ -157,7 +157,7 @@ installer USB drive plugged-in, and press the F10 key to launch the one-time
 boot menu. Choose the USB device.</p>
 
 <p>The Android-x86 GRUB menu will show up, choose the third option:</p>
-<img width="640" src="/assets/androidinstall.jpg"/>
+<span style="display: block; text-align: center"><img width="640" src="/assets/androidinstall.jpg"/></span>
 
 
 <p>When you are faced with the list of
@@ -187,7 +187,7 @@ press Ctrl+Alt+F2 to switch to tty2 and run the following command (modify
 accordingly):</p>
 
 <pre class="prettyprint">$ modprobe rtsx_pci_sdmmc</pre>
-<img width="640" src="/assets/rtsx_pci_sdmmc.jpg/">
+<span style="display: block; text-align: center"><img width="640" src="/assets/rtsx_pci_sdmmc.jpg/"></span>
 
 <p>Then press Ctrl+Alt+F1 to go back to tty1 (where
 the list of partitions is), and select “Detect devices”. Hopefully, the 2/3
@@ -197,7 +197,7 @@ the partitions you created earlier (first to last), and the filesystem type
 will also give you another indication as to which partition is which.</p>
 
 <p>Choose the microSD card NTFS partition as the destination of the Android-x86 installation.</p>
-<img width="640" src="/assets/sdcardpartition.jpg"/>
+<span style="display: block; text-align: center"><img width="640" src="/assets/sdcardpartition.jpg"/></span>
 <p>&nbsp;</p>
 
 <p>When asked if you want to install EFI GRUB, say yes.</p>
@@ -370,7 +370,7 @@ $ cp />path/to/android_ntfs_partition/android-7.1-rc2/kernel /path/to/android_fa
 location for it and its relatives, GRUB should now be able to boot the initial
 ramdisk  which should be able to automatically detected Android-x86 on the
 microSD card, since any missing kernel modules will now be loaded.</p>
-<img width="640" src="/assets/androidloaded.jpg"/>
+<span style="display: block; text-align: center"><img width="640" src="/assets/androidloaded.jpg"/></span>
 
 <p>&nbsp;</p>
 
