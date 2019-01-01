@@ -1,0 +1,121 @@
+---
+layout: post
+comments: true
+title: Planning my first personal dev cloud(s)
+author: Igor D.C.
+tags:
+- Cloud
+- OpenStack
+- Kubernetes
+- DevOps
+- Datacenter
+---
+
+<span style="display: block; text-align: center"><img src="/assets/datacenter0.jpg" width="640"/></span>
+<br/>
+
+<p>After being mostly absent from the OpenStack community and OpenStack contributions for the past year and a half, and from Open Source in general for almost a year (after implementing IETF SFC "friendly" extensions to networking-sfc in OpenStack Neutron and initial VNF Forwarding Graph capabilities in OSM, the Open Source MANO), I will finally be returning to OpenStack Neutron development in 2019.</p>
+
+<p>One thing that I want to make sure I have access to, this time, is my own private cloud for development, testing and semi-production purposes or, most likely, a few private clouds. This will allow me to further exercise and understand the latest developments in the cloud and datacenter spaces, bypass corporate proxy troubles and run my own workloads.</p>
+
+<p>This post is either the first in a series about my deployment(s), challenges faced, decisions made and issues resolved, or perhaps it will be a single post that I will update from time to time.</p>
+
+<p>I will use it (and the series) to easily share information about my deployment with other people that may be interested and also to get feedback.</p>
+
+<p>Having said that, here's the plan as of today (taking into account the hardware I already have or soon will obtain):</p>
+<br/>
+
+
+<h4>Available raw generalized hardware per available node:</h4>
+
+<table style="margin: 0px auto">
+  <tr>
+    <th>Node</th>
+    <th>Physical cores</th>
+    <th>Logical cores</th>
+    <th>RAM total</th>
+    <th>HDD storage</th>
+  </tr>
+  <tr>
+    <td style="text-align:center">Node 1</td>
+    <td style="text-align:center">4</td>
+    <td style="text-align:center">8</td>
+    <td style="text-align:center">32 GiB</td>
+    <td style="text-align:center">none</tb>
+  </tr>
+  <tr>
+    <td style="text-align:center">Node 2</td>
+    <td style="text-align:center">4</td>
+    <td style="text-align:center">8</td>
+    <td style="text-align:center">32 GiB</td>
+    <td style="text-align:center">2 TB</tb>
+  </tr>
+  <tr>
+    <td style="text-align:center">Node 3</td>
+    <td style="text-align:center">6</td>
+    <td style="text-align:center">12</td>
+    <td style="text-align:center">32 GiB</td>
+    <td style="text-align:center">2 TB</tb>
+  </tr>
+  <tr>
+    <td style="text-align:center">Node 4</td>
+    <td style="text-align:center">8</td>
+    <td style="text-align:center">16</td>
+    <td style="text-align:center">48 GiB</td>
+    <td style="text-align:center">1.3 TB</tb>
+  </tr>
+  <tr>
+    <td style="text-align:center">Node 5</td>
+    <td style="text-align:center">16</td>
+    <td style="text-align:center">32</td>
+    <td style="text-align:center">128 GiB</td>
+    <td style="text-align:center">6.5 TB</tb>
+  </tr>
+  <tr style="font-weight: bold">
+    <td style="text-align:center">TOTAL</td>
+    <td style="text-align:center">36</td>
+    <td style="text-align:center">72</td>
+    <td style="text-align:center">272 GiB</td>
+    <td style="text-align:center">11.8 TB</tb>
+  </tr>
+</table>
+
+<p>I will provide more details on the specific hardware being used later, but all machines have Intel® Hyper-Threading Technology enabled, thus the number of logical cores.</p>
+<br/>
+
+
+<h4>Networking-related comments</h4>
+<ul>
+  <li>1x 8-port compact Gigabit Ethernet switch (non-managed, non VLAN capable)</li>
+  <li>1x 4-port compact Gigabit Ethernet switch (managed, VLAN capable)</li>
+  <li>Wi-Fi 5 (802.11ac) network for external Internet access</li>
+  <li>Most nodes have two Gigabit networking interfaces</li>
+  <li>I can acquire Gigabit Ethernet USB3 adapters for additional flexibility</li>
+  <li>I can acquire Wi-Fi (802.11ac) USB3 adapters for additional flexibility</li>
+  <li>One of the nodes additionally has an Intel® Ethernet Server Adapter I350-T4V2 network card with 4 Gigabit Ethernet ports and support for SR-IOV</li>
+</ul>
+<br/>
+
+
+<h4>Storage-related comments:</h4>
+<p>All nodes have small SSDs for the base OS and and undercloud data. Apart from that, all nodes except one have extended capacity by having at least 1 HDD as well (this will potentially be used for Ceph-backed storage), as can be seen in the table. It's probably too much capacity for me, but better safe than sorry. Magnetic storage is cheap nowadays and doesn't seem to want to get any cheaper, so why not?</p>
+<br/>
+
+
+<h4>OS-related comments:</h4>
+<p>In terms of operating systems, I will focus on only two for the host OS: Ubuntu Server 18.04 LTS and the latest Clear Linux OS. Which nodes have which system will change over time.</p>
+<p>In terms of guest OSs, the possibilities are endless and I will use whatever my use case requires, including Windows 10.</p>
+<br/>
+
+
+<h4>Final comments:</h4> 
+
+<p>I will attempt to have 1 semi-production dev cloud with OpenStack with at least 2 of the 6 nodes above. However, most of these nodes will be used in more of a development manner, so they will be teared-down, rebuilt (I'll probably maintain a few Clonezilla images with the basics already baked in), redeployed, reconfigured and re-annexed to different clouds, frequently.</p>
+
+<p>One possibility I have in mind is to pass-through PCIe video cards to Windows 10 guests and make those VMs my effective gaming machines. However, for the time being I will not invest in any high-end PCIe video card.</p>
+
+<p>I am also expecting to deploy Kubernetes in the same fashion and even have hybrid OpenStack/Kubernetes deployments.</p>
+
+<p>Finally, the ability to WoL (Wake-on-LAN) under different circumstances, both automatic and manual, local and remote, is in the picture too. Most of the nodes are extremely energy efficient so could run 24/7 with double-digit yearly costs in energy, but two of them ideally should remain offline unless they are really needed. Being able to power them up without any hassle, or having some sort of trigger (for example, having them power on automatically when a new Nova instance needs to be scheduled to them) is a very interesting prospect that I will be working towards.</p>
+
+<p>Let me know what you think about the deployment, your questions, or your ideas in the comments section below. What do you think would be interesting workloads to run on the semi-production cloud?</p>
