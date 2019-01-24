@@ -34,11 +34,11 @@
                     <li class="active"><a href="{{ site.baseurl }}/archive.html">Archive</a></li>
                     <li class="active"><a href="{{ site.baseurl }}/about.html">About</a></li>
                     <li class="active"><a href="{{ site.baseurl }}/feed.xml">RSS</a></li>
-                    {% if site.gitlab != '' %}
-                      <li class="active"><a href="https://gitlab.com/{{ site.gitlab }}">GitLab</a></li>
-                    {% endif %}
                     {% if site.github != '' %}
                       <li class="active"><a href="https://github.com/{{ site.github }}">GitHub</a></li>
+                    {% endif %}
+                    {% if site.gitlab != '' %}
+                      <li class="active"><a href="https://gitlab.com/{{ site.gitlab }}">GitLab</a></li>
                     {% endif %}
                     <li class="active"><a href="https://twitter.com/igordcard">Twitter</a></li>
                     <li class="active"><a href="https://medium.com/@igordc">Medium</a></li>
