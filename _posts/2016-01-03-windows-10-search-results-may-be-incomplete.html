@@ -20,7 +20,7 @@ tags:
 
 <p>This workaround was applied to the latest Windows update to version 1511 (build 10586), as the update itself did not fix anything in my setup.</p>
 
-<p>The workaround is simple, just fire up the Indexing options and add the following directory to the indexed locations: <b><tt>C:\Users\YOUR_USER\AppData\Local\Packages\windows.immersivecontrolpanel_cw5n1h2txyewy\LocalState</tt></b>.</p>
+<p>The workaround is simple, just fire up the Indexing options and add the following directory to the indexed locations: <b><code style="word-wrap:break-word;">C:\Users\YOUR_USER\AppData\Local\Packages\windows.immersivecontrolpanel_cw5n1h2txyewy\LocalState</code></b>.</p>
 
 <p>If your issue is somehow caused by the immersive control panel (also why control panel items might be missing  from search), then hopefully this will work. Meanwhile, you might have difficulty finding the Indexing options because of this exact problem, so you can just call it directly by inserting <b><tt>rundll32.exe shell32.dll,Control_RunDLL srchadmin.dll</tt></b> on the Run dialog (WINKEY+R).</p>
 
