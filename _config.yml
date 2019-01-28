@@ -19,7 +19,7 @@ comments: true
 isso: ''
 
 permalink: /:year/:month/:title
-paginate: 3
+paginate: 6
 
 highlighter: rouge
 
