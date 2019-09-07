@@ -16,6 +16,9 @@ title: Blog
         {% endif %}
         <div class="content">
             {{ post.excerpt }}
+            {% if post.excerpt != post.content %}
+            <a href="{{ site.baseurl }}{{ post.url }}"><b>Read more...</b></a>
+            {% endif %}
         </div>
     </div>
 </div>
