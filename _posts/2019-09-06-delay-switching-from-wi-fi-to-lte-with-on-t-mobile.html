@@ -1,0 +1,39 @@
+---
+layout: post
+comments: true
+title: Delay switching from Wi-Fi to LTE on T-Mobile
+author: Igor D.C.
+tags:
+- Internet
+- Fix
+- Android
+- TMobile
+- CloudFlare
+- DNS
+- OnePlus6T
+---
+
+<p>This is an Android-specific post but perhaps could apply to iPhone/iOS as well. When I got my OnePlus 6T (T-Mobile locked, though I don't think this is related), I don't remember experiencing any network connectivity issues or weaker-than-expected LTE signal. However, at some point, switching from Wi-Fi to cellular data became a problem. It would consistently take more than 3 minutes, no exceptions, to be able to surf the web over LTE (or any other cellular technology) after turning off Wi-Fi.</p><span style="display: block; text-align: center"><img src="/assets/tmobile.png" width="60%"/></span><br/>
+<p>The triggering cause of this issue was having configured Android to use CloudFlare's <a href="https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/">1.1.1.1</a> public DNS resolver. If you know how to disable the custom DNS configuration in your phone, great - that's all you need to do. Otherwise, continue reading.</p>
+
+<span style="display: block; text-align: center"><img src="/assets/cf-logo-h-rgb.png" width="70%"/></span><br/>
+<table style="border: none">
+<tr><td>
+<p>At some point I configured CloudFlare's 1.1.1.1 DNS server in my Android phone by going into <u>Settings, Wi-Fi & internet, Private DNS</u> and choosing <b>Private DNS provider hostname</b> instead of <b>Off</b>.</p>
+<p>There, I set the address of the DNS provider to <code>1dot1dot1dot1.cloudflare-dns.com</code> since IP addresses aren't allowed in this field.</p>
+
+<p>I had tested the connection, latencies and effective DNS server resolving requests and everything seemed to be working correctly - apart from the delay when switching away from Wi-Fi, which I only noticed later.</p>
+
+<p>So if you've made this configuration change and are seeing the multi-minute delay, the best for now is probably to disable the Private DNS provider setting again.</p>
+
+<p>The setting above can be found in the settings hierarchy specified, for OnePlus 6T running OxygenOS 9.0.13 (Android 9). It should be similar for other versions of OxygenOS and other recent OnePlus phones.</p>
+
+<p>For recent Samsung phones, the same setting can be found via <u>Settings, Connections, More connection settings, Private DNS</u>.</p>
+
+<p> This is an Android-specific post but perhaps could apply to iPhone/iOS as well. Please let me know in the comments below if you've had a similar experience when trying a different DNS server on iOS and T-Mobile. It's also possible that this isn't specific to T-Mobile but rather an issue in Android or OxygenOS - again, let me know your thoughts.</p>
+</td>
+<td>
+<span style="display: block; text-align: center"><img src="/assets/oneplus_dns.png" width="100%"/></span>
+</td>
+</table>
+</div>
