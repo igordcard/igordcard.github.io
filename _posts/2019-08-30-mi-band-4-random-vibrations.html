@@ -10,26 +10,28 @@ tags:
 - Android
 ---
 
-<p>Recently I upgraded from the Xiaomi Mi Band 3 to the new Xiaomi Mi Smart Band 4 (Mi Band 4) and, unfortunately, on the very first night of sleep - I was woken up by it in the middle of pleasant sleep. I present the solution (which only applies to Android and for my specific environment/cause) below.</p><span style="display: block; text-align: center"><img src="/assets/miband4.png" width="80%"/></span><br/>
+<p>Recently I upgraded from the Xiaomi Mi Band 3 to the new Xiaomi Mi Smart Band 4 (Mi Band 4) and, unfortunately, on the very first night of sleep - I was woken up in the middle of a pleasant sleep.. by the band. I present the solution (which only applies to Android and for my specific environment/cause) below.</p><span style="display: block; text-align: center"><img src="/assets/miband4.png" width="80%"/></span><br/>
 
-<p>It turns out that, for my particular situation, the issue had actually nothing to do with the Mi Band 4 as a product or even the default software for it on Android (Mi Fit). I had been using <a href="https://play.google.com/store/apps/details?id=cz.zdenekhorak.mibandtools">Mi Band Tools</a> since I got the Mi Band 3 and when I transitioned from Mi Band 3 to 4, I kept using it and made absolutely no changes to the configuration except choosing the new band's bluetooth address so that Mi Band Tools could sync with it.<p>
+<p>It turns out that, for my particular situation, the issue had actually nothing to do with the Mi Band 4 as a product or even the default software for it on Android (Mi Fit). I had been using <a href="https://play.google.com/store/apps/details?id=cz.zdenekhorak.mibandtools">Mi Band Tools</a> since I was already an owner of the Mi Band 3. When I transitioned from Mi Band 3 to 4, I kept using the app and made absolutely no changes to the configuration except choosing the new band's bluetooth address so that Mi Band Tools could sync with it.<p>
 
 <p>However, Mi Band Tools is the piece of software that was ultimately causing the random vibration issue at night, specifically in bed.<p>
 	
-<p>Since the Mi Band 4, the app supports gestures to trigger additional watches on the band. By default (at least as of recently) the app enables the gestures feature (even though no actions are configured). Unfortunately, what it also enables is haptic/vibration feedback when gestures are triggered, even if it's a gesture that hasn't been associated to any action.<p>
+<p>Since the Mi Band 4, the app supports gestures to trigger additional actions on the band. By default (at least as of recently) the app enables the gestures feature (even though no actions are configured). Unfortunately, what it also enabled is haptic/vibration feedback when gestures are triggered, even if it's a gesture that hasn't been associated to any action.<p>
 
-<p>The bad consequence of having the gestures with haptic feedback enabled is that, while moving in bed with the band, those gestures can get triggered. Don't ask me exactly how I triggered mine, but I did.<p>
+<p>The bad consequence of having the gestures with haptic feedback enabled is, while moving in bed with the band, those gestures may get triggered. Don't ask me exactly how I triggered mine, but I did.<p>
 
 <table style="border: none">
 <tr><td>
-<p>The solution thus, for this particular cause, is to got into Mi Band Tools, slide the sidebar out, choose Gesture in the Actions section and then choose the settings icon tab, you should see the screen on the right.<p>
+<p>The solution thus, for this particular cause, is to go into Mi Band Tools, slide the sidebar out, choose <b>Gesture</b> in the <b>Actions</b> section and then choose the settings icon tab, you should see the screen on the right.<p>
 	
 <p>Just <u>disable</u> <b>Haptic Feedback</b> or increase the Gesture Counting Interval to more than the default 1500 milliseconds, because from my testing the vibration is only triggered if there's a second gesture within the 1.5 seconds.<p>
 
-<p>That's it, if you just migrated from Mi Band 3 or installed Mi Band Tools recently and are puzzled by band vibrations in bed, hopefully this will be useful for you. Please let me know if you find any similar issues and how you solved them in the comments section below.
+<p>That's it, if you just migrated from Mi Band 3 or installed Mi Band Tools recently and are puzzled by band vibrations in bed, hopefully this will be useful for you. Please let me know if you find any similar issues and how you solved them in the comments section below.</p>
+
+<p><b><u>Update (September 6th 2019)</u></b>: A Mi Band Tools update seems to have reset the Haptic Feedback setting back to enabled. So you might have to disable it again to avoid being surprised by vibrations again.</p>
 </td>
 <td>
-<span style="display: block; text-align: center"><img src="/assets/mitools_vibration.png" width="80%"/></span>
+<span style="display: block; text-align: center"><img src="/assets/mitools_vibration.png" width="100%"/></span>
 </td>
 </table>
 </div>
