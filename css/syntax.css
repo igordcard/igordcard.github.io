@@ -62,3 +62,4 @@
 .highlight .vg { color: #dd7700; font-weight: bold } /* Name.Variable.Global */
 .highlight .vi { color: #3333BB } /* Name.Variable.Instance */
 .highlight .il { color: #0000DD; font-weight: bold } /* Literal.Number.Integer.Long */
+pre code{white-space: pre;}
