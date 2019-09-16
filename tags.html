@@ -49,7 +49,7 @@ Originally grabbed from https://codinfox.github.io/dev/2015/03/06/use-tags-and-c
             <small>{{ post.date | date_to_string }}</small>
         </a>
         {% for tag in post.tags %}
-        <a class="codinfox-tag-mark" href="/blog/tag/#{{ tag | slugify }}">{{ tag }}</a>
+        <a class="codinfox-tag-mark" href="/tags#{{ tag | slugify }}">{{ tag }}</a>
         {% endfor %}
         </h6>
     </li>
