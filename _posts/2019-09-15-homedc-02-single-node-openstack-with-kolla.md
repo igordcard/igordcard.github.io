@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Home DC 02&#58; Single-node OpenStack with Kolla (environment)
+title: Home DC 02&#58; Single-node OpenStack with Kolla
 author: Igor D.C.
 tags:
 - Cloud
