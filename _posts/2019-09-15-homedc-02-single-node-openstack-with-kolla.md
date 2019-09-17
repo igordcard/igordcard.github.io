@@ -11,7 +11,7 @@ tags:
 - Neutron
 ---
 
-In the [the first Home DC post](/2018/12/homedc-01-planning-my-first-personal-dev-cloud), I introduced some of the hardware I made available for the purpose of deploying a home/lab cloud/cluster/datacenter (or many). I have some ideas about what to do with this hardware but will leave that to another day, another post. Today I want to give you an introduction to my simple recipe for deploying a single-node AIO (`all-in-one`) OpenStack based on kolla / kolla-ansible. I'll go through the hardware and network requirements and environment used. The next post will walk through the steps to setup this deployment and outline some of the difficulties I faced until the deployment was easily reproducible.
+In the [the first Home DC post](/2018/12/homedc-01-planning-my-first-personal-dev-cloud), I introduced some of the hardware I made available for the purpose of deploying a home/lab cloud/cluster/datacenter (or many). I have some ideas about what to do with this hardware but will leave that to another day, another post. Today I want to give you an introduction to my simple recipe for deploying a single-node AIO (`all-in-one`) OpenStack based on kolla / kolla-ansible. I'll go through the hardware and network requirements and environment used. The [next post](/2019/09/homedc-03-installing-single-node-openstack-with-kolla) will walk through the steps to setup this deployment and outline some of the difficulties I faced until the deployment was easily reproducible.
 <span style="display: block; text-align: center">![](/assets/datacenter02.jpg "Home DC 02"){:width="84%"}</span>
 
 # Requirements
@@ -57,7 +57,7 @@ In this first phase of the single-node AIO deployment, proxy configurations with
 
 # Next post
 
-The next post, Home DC 03, covers the actual steps for installing OpenStack in the single machine.
+The next post, [Home DC 03](/2019/09/homedc-03-installing-single-node-openstack-with-kolla), covers the actual steps for installing OpenStack in the single machine.
 
 My initial intention was to go through everything related to the single node AIO kolla OpenStack deployment in a single blog post: requirements, networking, steps, problems, etc. However, as I like to keep posts short whenever I can, I decided to have the actual setup steps be in their own post.
 

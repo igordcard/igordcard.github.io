@@ -11,7 +11,7 @@ tags:
 - Neutron
 ---
 
-In the previous post, [Home DC 02](/2019/09/homedc-02-single-node-openstack-with-kolla-environment), I've outlined the requirements and an environment/scenario for a single-node AIO kolla / kolla-ansible OpenStack deployment, the first piece in the Home DC. Now, I'm going to walk through the actual actions taken on the single server to get to the point where OpenStack is running.
+In the previous post, [Home DC 02](/2019/09/homedc-02-single-node-openstack-with-kolla), I've outlined the requirements and an environment/scenario for a single-node AIO kolla / kolla-ansible OpenStack deployment, the first piece in the Home DC. Now, I'm going to walk through the actual actions taken on the single server to get to the point where OpenStack is running.
 <span style="display: block; text-align: center">![](/assets/datacenter03.jpg "Home DC 02"){:width="84%"}</span><br/>
 
 # Recap
