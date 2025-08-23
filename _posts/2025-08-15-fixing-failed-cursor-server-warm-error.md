@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Fixing Failed Cursor Server Warm error
+title: Fixing Failed to warm cursor server error
 author: Igor D.C.
 tags:
 - Cursor
@@ -11,13 +11,11 @@ tags:
 - Agents
 ---
 
-
-<span style="display: block; text-align: center">![](/assets/cursor-open-vm.png "Cursor Open VM button"){:width="50%"}</span><br/>
+<span style="display: block; text-align: center">![](/assets/cursor-warm-error.png "Cursor server warm error"){:width="80%"}</span><br/>
 
 If you're developing using Cursor and, after clicking "Open in VM", you see `Failed to warm cursor server` while it tries to connect to the remote background agent VM, it's likely because the agent's active model was changed (or you lost access to the previously used model). That causes a model mismatch and the VM won't come up.
 
-
-<span style="display: block; text-align: center">![](/assets/cursor-warm-error.png "Cursor server warm error"){:width="50%"}</span><br/>
+<span style="display: block; text-align: center">![](/assets/cursor-open-vm.png "Cursor Open VM button"){:width="80%"}</span><br/>
 
 
 Try this:
