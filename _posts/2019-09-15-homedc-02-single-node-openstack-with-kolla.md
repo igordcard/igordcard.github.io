@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: Home DC 02&#58; Single-node OpenStack with Kolla
-author: Igor D.C.
+author: Igor DC
 tags:
 - Cloud
 - OpenStack

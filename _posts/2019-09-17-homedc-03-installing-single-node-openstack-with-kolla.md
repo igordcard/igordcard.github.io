@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: Home DC 03&#58; Installing single-node OpenStack with Kolla
-author: Igor D.C.
+author: Igor DC
 tags:
 - Cloud
 - OpenStack

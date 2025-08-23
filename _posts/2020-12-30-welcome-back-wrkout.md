@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: Welcome back, Wrkout!
-author: Igor D.C.
+author: Igor DC
 tags:
 - Wrkout
 - Android

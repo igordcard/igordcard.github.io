@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: Fixing Failed to warm cursor server error
-author: Igor D.C.
+author: Igor DC
 tags:
 - Cursor
 - Programming
